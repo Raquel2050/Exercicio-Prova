@@ -120,4 +120,12 @@ def excluir_categoria(request, id):
     categoria = Categoria.objects.get(id=id)
     categoria.delete()
     return redirect('gerencia:cadastro_categoria')  
+
+def filtro_categoria(request):
+    filtro=request.GET.get('search')
+    if filtro:
+        categorias=Categoria.objects.filter(nome__icontains=filtro)
+    else:
+        categorias = Categoria.objects.none()
+    return render(request, 'gerencia/filtro_categoria.html', {'categorias': categorias})
         

@@ -1,6 +1,19 @@
 {% extends 'base_gerencia.html' %}
 
 {% block main %}
+<form class="form-inline mr-auto w-100 navbar-search" method='get' action="{% url 'gerencia:filtro_categoria'%}">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control bg-light border-0 small"
+            placeholder="Search for..." aria-label="Search"
+            aria-describedby="basic-addon2">
+
+        <div class="input-group-append">
+            <input class="btn btn-primary" type="submit">
+                <i class="fas fa-search fa-sm"></i>
+            </input>
+        </div>
+    </div>
+</form>
 
 <h2>Cadastro de categorias</h2>
 <form action="" method="post" class="">
@@ -25,16 +38,4 @@
 </div>
 {%endblock%}
 <!--{% include 'components/pagination.html' with page_obj=categorias %}
-<form class="form-inline mr-auto w-100 navbar-search" method='get' action="{% url 'gerencia:filtrar_categoria'%}">
-    <div class="input-group">
-        <input type="text" name="search" class="form-control bg-light border-0 small"
-            placeholder="Search for..." aria-label="Search"
-            aria-describedby="basic-addon2">
 
-        <div class="input-group-append">
-            <input class="btn btn-primary" type="submit">
-                <i class="fas fa-search fa-sm"></i>
-            </input>
-        </div>
-    </div>
-</form>
