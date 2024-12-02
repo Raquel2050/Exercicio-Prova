@@ -3,6 +3,7 @@ from .forms import NoticiaForm, NoticiaFilterForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Noticia, Categoria
+from .forms import CategoriaForm
 
 # Create your views here.
 @login_required
@@ -89,3 +90,34 @@ def index(request):
         'search_query': search_query,
     }
     return render(request, 'gerencia/index.html', contexto)
+
+def criar_categoria(request):
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('gerencia:cadastro_categoria')
+    else:
+        form = CategoriaForm() 
+    categorias = Categoria.objects.all()
+    contexto = {'form': form, 'categorias': categorias}
+    return render(request, 'gerencia/cadastro_categoria.html', contexto)
+
+def editar_categoria(request, id):
+    categoria = Categoria.objects.get(id=id)
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST, instance=categoria)
+        if form.is_valid():
+            form.save()
+            return redirect('gerencia:cadastro_categoria')
+    else:
+        form = CategoriaForm(instance=categoria)
+    categorias = Categoria.objects.all()
+    contexto = {'form': form, 'categorias': categorias}
+    return render(request, 'gerencia/cadastro_categoria.html', contexto)
+
+def excluir_categoria(request, id):
+    categoria = Categoria.objects.get(id=id)
+    categoria.delete()
+    return redirect('gerencia:cadastro_categoria')  
+        

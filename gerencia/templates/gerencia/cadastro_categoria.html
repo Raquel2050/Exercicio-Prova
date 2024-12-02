@@ -1,0 +1,40 @@
+{% extends 'base_gerencia.html' %}
+
+{% block main %}
+
+<h2>Cadastro de categorias</h2>
+<form action="" method="post" class="">
+    {% csrf_token %}
+    <div>
+        <label for="nome"></label>
+        {{form.nome}}
+    </div>
+    <input type="submit">
+</form>
+
+<div>
+    <h2>Lista - Categorias:</h2>
+    {% for categoria in categorias %}
+        <div>
+            <p>{{categoria.nome}}</p>
+            <a href="{% url 'gerencia:editar_categoria' categoria.id %}">Editar categoria</a>
+            <a href="{% url 'gerencia:excluir_categoria' categoria.id %}">Excluir categoria</a>
+        </div>
+    {% endfor %}
+    
+</div>
+{%endblock%}
+<!--{% include 'components/pagination.html' with page_obj=categorias %}
+<form class="form-inline mr-auto w-100 navbar-search" method='get' action="{% url 'gerencia:filtrar_categoria'%}">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control bg-light border-0 small"
+            placeholder="Search for..." aria-label="Search"
+            aria-describedby="basic-addon2">
+
+        <div class="input-group-append">
+            <input class="btn btn-primary" type="submit">
+                <i class="fas fa-search fa-sm"></i>
+            </input>
+        </div>
+    </div>
+</form>
